@@ -1,16 +1,21 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import { Welcome } from "../pages/Welcome";
-import { UserIdentification } from "../pages/UserIdentification";
-import { Confirmation } from "../pages/Confirmation";
+import { Welcome } from "../screens/Welcome";
 
-import colors from "../../styles/colors";
+import { UserIdentification } from "../screens/UserIdentification";
+import { Confirmation } from "../screens/Confirmation";
 
-const stackRoutes = createStackNavigator();
+import { PlantSave } from "../screens/PlantSave";
 
-const AppRoutes: React.FC = () => (
-  <stackRoutes.Navigator
+import { AuthRoutes } from "./tab.routes";
+
+import colors from "../styles/colors";
+
+const StackRoutes = createStackNavigator();
+
+const AppRoutes = () => (
+  <StackRoutes.Navigator
     headerMode="none"
     screenOptions={{
       cardStyle: {
@@ -18,13 +23,21 @@ const AppRoutes: React.FC = () => (
       },
     }}
   >
-    <stackRoutes.Screen name="Welcome" component={Welcome} />
-    <stackRoutes.Screen
+    <StackRoutes.Screen name="Welcome" component={Welcome} />
+
+    <StackRoutes.Screen
       name="UserIdentification"
       component={UserIdentification}
     />
-    <stackRoutes.Screen name="Confirmation" component={Confirmation} />
-  </stackRoutes.Navigator>
+
+    <StackRoutes.Screen name="Confirmation" component={Confirmation} />
+
+    <StackRoutes.Screen name="PlantsSelection" component={AuthRoutes} />
+
+    <StackRoutes.Screen name="PlantSave" component={PlantSave} />
+
+    <StackRoutes.Screen name="MyPlants" component={AuthRoutes} />
+  </StackRoutes.Navigator>
 );
 
 export default AppRoutes;
