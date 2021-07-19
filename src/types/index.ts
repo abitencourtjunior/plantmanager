@@ -17,3 +17,14 @@ export type Plant = {
   };
   dateTimeNotification: Date;
 };
+
+export type Sensor = {
+  id: string;
+  name: string;
+  name_product: string;
+  token: string;
+};
+
+export type SensorResponse = {
+  level: string;
+};

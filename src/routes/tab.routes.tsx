@@ -3,17 +3,18 @@ import { Platform } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialIcons } from "@expo/vector-icons";
 
-import { PlantsSelection } from "../screens/PlantsSelection";
-import { MyPlants } from "../screens/MyPlants";
+import { SensorSave } from "../screens/SensorSave";
+import { WifiConfiguration } from "../screens/WifiConfiguration";
 
 import colors from "../styles/colors";
+import { PlantsSelection } from "../screens/PlantsSelection";
 
 const AppTab = createBottomTabNavigator();
 
 export const AuthRoutes = () => (
   <AppTab.Navigator
     tabBarOptions={{
-      activeTintColor: colors.green,
+      activeTintColor: colors.orange,
       inactiveTintColor: colors.heading,
       labelPosition: "beside-icon",
       style: {
@@ -23,8 +24,18 @@ export const AuthRoutes = () => (
     }}
   >
     <AppTab.Screen
-      name="Nova Planta"
+      name="Inicio"
       component={PlantsSelection}
+      options={{
+        tabBarIcon: ({ size, color }) => (
+          <MaterialIcons name="home" size={size} color={color} />
+        ),
+      }}
+    />
+
+    <AppTab.Screen
+      name="Nova Placa"
+      component={SensorSave}
       options={{
         tabBarIcon: ({ size, color }) => (
           <MaterialIcons name="add-circle-outline" size={size} color={color} />
@@ -33,15 +44,11 @@ export const AuthRoutes = () => (
     />
 
     <AppTab.Screen
-      name="Minhas Plants"
-      component={MyPlants}
+      name="Configurar"
+      component={WifiConfiguration}
       options={{
         tabBarIcon: ({ size, color }) => (
-          <MaterialIcons
-            name="format-list-bulleted"
-            size={size}
-            color={color}
-          />
+          <MaterialIcons name="wifi" size={size} color={color} />
         ),
       }}
     />

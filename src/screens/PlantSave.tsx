@@ -108,7 +108,7 @@ export const PlantSave = () => {
               mode="time"
               display="spinner"
               onChange={handleChangeTime}
-              textColor={colors.green}
+              textColor={colors.orange}
             />
           )}
 

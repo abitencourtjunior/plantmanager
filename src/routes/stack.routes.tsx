@@ -11,6 +11,8 @@ import { PlantSave } from "../screens/PlantSave";
 import { AuthRoutes } from "./tab.routes";
 
 import colors from "../styles/colors";
+import { PlantsSelection } from "../screens/PlantsSelection";
+import { InfoSensors } from "../screens/InfoSensors";
 
 const StackRoutes = createStackNavigator();
 
@@ -31,6 +33,8 @@ const AppRoutes = () => (
     />
 
     <StackRoutes.Screen name="Confirmation" component={Confirmation} />
+
+    <StackRoutes.Screen name="InfoSensors" component={InfoSensors} />
 
     <StackRoutes.Screen name="PlantsSelection" component={AuthRoutes} />
 

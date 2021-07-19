@@ -2,12 +2,18 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Notifications from "expo-notifications";
 import { format } from "date-fns";
 
-import { Plant } from "../types";
+import { Plant, Sensor } from "../types";
 
 export type StoragePlantProps = {
   [id: string]: {
     data: Plant;
     notificationId: string;
+  };
+};
+
+export type StorageSensorProps = {
+  [id: string]: {
+    data: Sensor;
   };
 };
 
@@ -64,6 +70,33 @@ export async function savePlant(plant: Plant): Promise<void> {
   }
 }
 
+export async function saveSensor(
+  token: any,
+  name: any,
+  name_product: any
+): Promise<void> {
+  try {
+    const data = await AsyncStorage.getItem("@engefil:sensors");
+    const sensors = data ? (JSON.parse(data) as StorageSensorProps) : {};
+
+    const newSensor = {
+      [token as any]: {
+        data: JSON.stringify({
+          name: name,
+          name_product: name_product,
+          token: token,
+        }),
+      },
+    };
+    await AsyncStorage.setItem(
+      "@engefil:sensors",
+      JSON.stringify({ ...newSensor, ...sensors })
+    );
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
 export async function loadPlants(): Promise<Plant[]> {
   try {
     const data = await AsyncStorage.getItem("@plantmanager:plants");
@@ -88,6 +121,43 @@ export async function loadPlants(): Promise<Plant[]> {
   } catch (error) {
     throw new Error(error);
   }
+}
+
+export async function loadSensors(): Promise<Sensor[]> {
+  try {
+    const data = await AsyncStorage.getItem("@engefil:sensors");
+    const sensors = data ? (JSON.parse(data) as StorageSensorProps) : {};
+
+    const plantsSorted = Object.keys(sensors).map((plant, index) => {
+      const result = JSON.stringify(sensors[plant].data).split(",");
+      let name = result[0].split(":")[1].replace("\\", "").replace('"', "");
+      let name_product = result[1]
+        .split(":")[1]
+        .replace("\\", "")
+        .replace('"', "");
+
+      name = name.substring(0, name.length - 2);
+      name_product = name_product.substring(0, name_product.length - 2);
+
+      return {
+        id: index as any,
+        name: name,
+        name_product: name_product,
+        token: plant,
+      };
+    });
+
+    return plantsSorted;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+export async function removeSensor(token: string): Promise<void> {
+  const data = await AsyncStorage.getItem("@engefil:sensors");
+  const sensors = data ? (JSON.parse(data) as StorageSensorProps) : {};
+  delete sensors[token];
+  await AsyncStorage.setItem("@engefil:sensors", JSON.stringify(sensors));
 }
 
 export async function removePlant(id: string): Promise<void> {

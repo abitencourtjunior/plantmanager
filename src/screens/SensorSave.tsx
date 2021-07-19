@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -14,74 +14,44 @@ import {
 
 import { useNavigation } from "@react-navigation/native";
 
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
 import { Button } from "../components/Button";
 
 import colors from "../styles/colors";
 import fonts from "../styles/fonts";
+import { saveSensor } from "../libs/storage";
 
-export const UserIdentification = () => {
+export const SensorSave = () => {
   const navigation = useNavigation();
-
-  const [isFocused, setIsFocused] = useState(false);
-  const [isFilled, setIsFilled] = useState(false);
   const [name, setName] = useState<string>();
-  const [identification, setIdentification] = useState<string>();
+  const [nameProduct, setNameProduct] = useState<string>();
+  const [token, setToken] = useState<string>();
 
-  useEffect(() => {
-    async function loadUsername() {
-      const user = await AsyncStorage.getItem("@engefil:user");
-      const identification = await AsyncStorage.getItem(
-        "@engefil:identification"
-      );
-
-      if (user || identification) {
-        navigation.navigate("PlantsSelection");
-      }
-    }
-
-    loadUsername();
-  }, []);
-
-  function hanldeInpuBlur() {
-    setIsFocused(false);
-    setIsFilled(!!name);
-  }
-
-  function handleInputFocus() {
-    setIsFocused(true);
-  }
-
-  function handleInputChange(value: string) {
+  function handleNameChange(value: string | undefined) {
     setName(value);
-    setIsFilled(!!value);
   }
 
-  function handleInputIdentificationChange(value: string) {
-    setIdentification(value);
+  function handleNameProductChange(value: string | undefined) {
+    setNameProduct(value);
+  }
+
+  function handleTokenChange(value: string | undefined) {
+    setToken(value);
+  }
+
+  function clearForm() {
+    setToken("");
+    setNameProduct("");
+    setName("");
   }
 
   async function handleSubmit() {
-    if (!name) {
-      return Alert.alert("Me diga como chamar você 😔");
+    if (!token || !name || !nameProduct) {
+      return Alert.alert("Preencha todos os dados da placa!");
     }
-
     try {
-      await AsyncStorage.setItem("@engefil:user", name);
-      await AsyncStorage.setItem(
-        "@engefil:identification",
-        identification as string
-      );
-
-      navigation.navigate("Confirmation", {
-        title: "Obrigado",
-        subtitle:
-          "Agora vamos começar a cadastrar os sensores, para monitorarmos.",
-        buttonTitle: "Começar",
-        icon: "smile",
-        nextScreen: "PlantsSelection",
-      });
+      await saveSensor(token, name, nameProduct);
+      clearForm();
+      navigation.goBack();
     } catch (err) {
       Alert.alert("Não foi possível salvar o seu nome 😔");
     }
@@ -97,29 +67,28 @@ export const UserIdentification = () => {
           <View style={styles.content}>
             <View style={styles.form}>
               <View style={styles.header}>
-                <Text style={styles.emoji}>{isFilled ? "😄" : "😀"}</Text>
-
-                <Text style={styles.title}>
-                  Como podemos {"\n"}
-                  chamar você?
-                </Text>
+                <Text style={styles.title}>Nova Placa</Text>
               </View>
 
               <TextInput
-                style={[
-                  styles.input,
-                  (isFocused || isFilled) && { borderColor: colors.orange },
-                ]}
-                placeholder="Digite um nome"
-                onBlur={hanldeInpuBlur}
-                onFocus={handleInputFocus}
-                onChangeText={handleInputChange}
+                style={[styles.input]}
+                value={name}
+                placeholder="Digite o nome do posto"
+                onChangeText={handleNameChange}
               />
 
               <TextInput
                 style={[styles.input]}
-                placeholder="Digite ID"
-                onChangeText={handleInputIdentificationChange}
+                value={nameProduct}
+                placeholder="Digite o nome do Produto"
+                onChangeText={handleNameProductChange}
+              />
+
+              <TextInput
+                style={[styles.input]}
+                value={token}
+                placeholder="Digite o token da placa"
+                onChangeText={handleTokenChange}
               />
 
               <View style={styles.footer}>
@@ -150,7 +119,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    paddingHorizontal: 54,
+    paddingHorizontal: 72,
   },
 
   header: {

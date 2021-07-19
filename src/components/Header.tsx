@@ -8,14 +8,26 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import colors from "../styles/colors";
 import fonts from "../styles/fonts";
 
+import engefilImage from "../assets/engefil.png";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
+
 export const Header = () => {
   const [username, setUsername] = useState<string>();
+  const [identification, setIdentification] = useState<string>();
+  const navigation = useNavigation();
+
+  const handleInfo = () => navigation.navigate("InfoSensors");
 
   useEffect(() => {
     async function loadUsername() {
-      const user = await AsyncStorage.getItem("@plantmanager:user");
+      const user = await AsyncStorage.getItem("@engefil:user");
+      const identification = await AsyncStorage.getItem(
+        "@engefil:identification"
+      );
 
       setUsername(user || "");
+      setIdentification(identification || "");
     }
 
     loadUsername();
@@ -26,12 +38,12 @@ export const Header = () => {
       <View>
         <Text style={styles.greeting}>Olá</Text>
         <Text style={styles.username}>{username}</Text>
+        <Text style={styles.identification}>ID: {identification}</Text>
       </View>
 
-      <Image
-        source={{ uri: "https://github.com/abitencourtjunior.png" }}
-        style={styles.image}
-      />
+      <TouchableOpacity onPress={handleInfo}>
+        <Image source={engefilImage} style={styles.image} />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -59,9 +71,16 @@ const styles = StyleSheet.create({
     lineHeight: 40,
   },
 
+  identification: {
+    fontSize: 16,
+    color: colors.heading,
+    fontFamily: fonts.heading,
+    lineHeight: 40,
+  },
+
   image: {
-    width: 70,
-    height: 70,
+    width: 150,
+    height: 80,
     borderRadius: 35,
   },
 });

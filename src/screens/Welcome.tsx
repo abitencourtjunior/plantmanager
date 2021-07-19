@@ -13,7 +13,7 @@ import { useNavigation } from "@react-navigation/native";
 
 import { Feather } from "@expo/vector-icons";
 
-import wateringImage from "../assets/watering.png";
+import engefilImage from "../assets/engefil.png";
 
 import colors from "../styles/colors";
 import fonts from "../styles/fonts";
@@ -29,21 +29,18 @@ export const Welcome = () => {
     <SafeAreaView style={styles.container}>
       <View style={styles.wrapper}>
         <Text style={styles.title}>
-          Gerencie {"\n"}
-          suas plantas de {"\n"}
-          forma fácil
+          Monitore {"\n"}
+          seus filtros de {"\n"}
+          forma fácil e prático
         </Text>
 
         <Image
-          source={wateringImage}
+          source={engefilImage}
           style={styles.image}
           resizeMode="contain"
         />
 
-        <Text style={styles.subtitle}>
-          Não esqueça mais de regar suas plantas. Nós cuidamos de lembrar você
-          sempre que precisar.
-        </Text>
+        <Text style={styles.subtitle}></Text>
 
         <TouchableOpacity
           style={styles.button}
@@ -91,13 +88,13 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    backgroundColor: colors.green,
+    backgroundColor: colors.orange,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 16,
     marginBottom: 10,
     height: 56,
-    width: 56,
+    width: 96,
   },
 
   buttonIcon: {

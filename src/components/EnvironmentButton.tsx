@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   },
 
   containerActive: {
-    backgroundColor: colors.green_light,
+    backgroundColor: colors.orange_light,
   },
 
   text: {
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
 
   textActive: {
-    color: colors.green_dark,
+    color: colors.orange_dark,
     fontFamily: fonts.heading,
     fontWeight: "bold",
   },

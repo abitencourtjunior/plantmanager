@@ -32,7 +32,7 @@ export const Confirmation = () => {
   } = routes.params as ConfirmationParams;
 
   function handleMoveOn() {
-    navigation.navigate(nextScreen);
+    navigation.navigate("PlantsSelection");
   }
 
   return (
