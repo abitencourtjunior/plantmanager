@@ -5,7 +5,9 @@ export const handleColorSensorOil = (sensors: SensorResponse[]) => {
     return;
   }
 
-  switch (sensors[0].level) {
+  let sensor = handleSensorToValidate(sensors);
+
+  switch (sensor?.level) {
     case "4":
       return { backgroundColor: "yellow" };
     case "2":
@@ -15,12 +17,18 @@ export const handleColorSensorOil = (sensors: SensorResponse[]) => {
   }
 };
 
+const handleSensorToValidate = (sensors: SensorResponse[]) => {
+  return sensors.find((se) => se.type === "0");
+};
+
 export const handleTextColorSensorOil = (sensors: SensorResponse[]) => {
   if (sensors.length === 0) {
     return;
   }
 
-  switch (sensors[0].level) {
+  let sensor = handleSensorToValidate(sensors);
+
+  switch (sensor?.level) {
     case "4":
       return { color: "black" };
     case "2":
@@ -30,12 +38,14 @@ export const handleTextColorSensorOil = (sensors: SensorResponse[]) => {
   }
 };
 
-export const handleResponseMessageOil = (sensorsR: SensorResponse[]) => {
-  if (sensorsR.length === 0) {
+export const handleResponseMessageOil = (sensors: SensorResponse[]) => {
+  if (sensors.length === 0) {
     return "[Óleo] Sensor não definido";
   }
 
-  switch (sensorsR[0].level) {
+  let sensor = handleSensorToValidate(sensors);
+
+  switch (sensor?.level) {
     case "4":
       return "Elemento Filtrante Saturado Em 80%, substituição em breve!";
     case "2":

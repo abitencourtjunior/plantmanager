@@ -5,11 +5,17 @@ export const handleColorSensorWatter = (sensors: SensorResponse[]) => {
     return;
   }
 
-  if (sensors[1].level === "1") {
+  let sensor = handleSensorToValidate(sensors);
+
+  if (sensor?.level === "1") {
     return { backgroundColor: "green" };
   }
 
   return { backgroundColor: "red" };
+};
+
+const handleSensorToValidate = (sensors: SensorResponse[]) => {
+  return sensors.find((se) => se.type === "1");
 };
 
 export const handleTextColorSensorWatter = (sensors: SensorResponse[]) => {
@@ -25,7 +31,9 @@ export const handleResponseMessageWatter = (sensors: SensorResponse[]) => {
     return "[Água] Sensor não definido";
   }
 
-  switch (sensors[1].level) {
+  let sensor = handleSensorToValidate(sensors);
+
+  switch (sensor?.level) {
     case "1":
       return "Diesel - OK - Sem contaminação";
     case "0":
