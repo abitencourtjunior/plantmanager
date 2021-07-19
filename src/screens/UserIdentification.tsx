@@ -20,6 +20,7 @@ import { Button } from "../components/Button";
 
 import colors from "../styles/colors";
 import fonts from "../styles/fonts";
+import { registerForPushNotificationsAsync } from "../notifications/notification";
 
 export const UserIdentification = () => {
   const navigation = useNavigation();
@@ -41,6 +42,7 @@ export const UserIdentification = () => {
       }
     }
 
+    registerForPushNotificationsAsync();
     loadUsername();
   }, []);
 

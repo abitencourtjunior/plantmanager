@@ -33,7 +33,7 @@ export const PlantsSelection = () => {
     <View style={styles.container}>
       <View style={styles.header}>
         <Header />
-        <Text style={styles.title}>Monitore seus filtros em tempo real.</Text>
+        <Text style={styles.title}>Monitore seus filtros em tempo real</Text>
       </View>
 
       <View style={styles.plants}>
@@ -61,12 +61,13 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontSize: 17,
+    fontSize: 20,
     color: colors.heading,
     fontFamily: fonts.heading,
     lineHeight: 20,
     marginTop: 15,
     paddingBottom: 20,
+    textAlign: "center",
   },
 
   subtitle: {

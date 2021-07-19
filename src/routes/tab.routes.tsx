@@ -21,6 +21,9 @@ export const AuthRoutes = () => (
         paddingVertical: Platform.OS === "ios" ? 20 : 0,
         height: 88,
       },
+      labelStyle: {
+        fontSize: 16,
+      },
     }}
   >
     <AppTab.Screen

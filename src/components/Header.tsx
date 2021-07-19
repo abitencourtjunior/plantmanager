@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   },
 
   identification: {
-    fontSize: 16,
+    fontSize: 18,
     color: colors.heading,
     fontFamily: fonts.heading,
     lineHeight: 40,

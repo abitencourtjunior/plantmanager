@@ -73,7 +73,7 @@ export const SensorSave = () => {
               <TextInput
                 style={[styles.input]}
                 value={name}
-                placeholder="Digite o nome do posto"
+                placeholder="Digite o nome do Posto"
                 onChangeText={handleNameChange}
               />
 
@@ -87,7 +87,7 @@ export const SensorSave = () => {
               <TextInput
                 style={[styles.input]}
                 value={token}
-                placeholder="Digite o token da placa"
+                placeholder="Digite o Token da Placa"
                 onChangeText={handleTokenChange}
               />
 

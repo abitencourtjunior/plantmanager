@@ -23,8 +23,17 @@ type PlantCardPrimaryProps = {
 import { api } from "../services/api";
 
 import { SensorResponse } from "../types";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import {
+  handleColorSensorOil,
+  handleResponseMessageOil,
+  handleTextColorSensorOil,
+} from "../services/oil";
 
+import {
+  handleColorSensorWatter,
+  handleResponseMessageWatter,
+  handleTextColorSensorWatter,
+} from "../services/watter";
 export const PlantCardPrimary = ({ plant, ...rest }: PlantCardPrimaryProps) => {
   const [sensors, setSensors] = useState<SensorResponse[]>([]);
 
@@ -43,40 +52,6 @@ export const PlantCardPrimary = ({ plant, ...rest }: PlantCardPrimaryProps) => {
 
     return () => clearInterval(interval);
   }, []);
-
-  const handleColorSensorOil = (sensors: SensorResponse[]) => {
-    if (sensors.length === 0) {
-      return;
-    }
-
-    if (sensors[0].level === "1") {
-      return { backgroundColor: "yellow" };
-    }
-  };
-
-  const handleColorSensorWatter = (sensors: SensorResponse[]) => {
-    if (sensors.length === 0) {
-      return;
-    }
-
-    if (sensors[0].level === "1") {
-      return { backgroundColor: "yellow" };
-    }
-  };
-
-  const handleResponseMessageOil = (sensorsR: SensorResponse[]) => {
-    if (sensorsR.length === 0) {
-      return "[Óleo] Sensor não definido ou placa desconectada";
-    }
-    return sensorsR[0].level;
-  };
-
-  const handleResponseMessageWatter = (sensorsR: SensorResponse[]) => {
-    if (sensorsR.length === 0) {
-      return "[Água] Sensor não definido ou placa desconectada";
-    }
-    return sensorsR[1].level;
-  };
 
   const handleDeleteOnPress = (token: string) => {
     Alert.alert("Remover", `Deseja remover o sensor?`, [
@@ -111,10 +86,12 @@ export const PlantCardPrimary = ({ plant, ...rest }: PlantCardPrimaryProps) => {
           {plant.name} - {plant.name_product} - {plant.token}
         </Text>
         <View style={[styles.validation, handleColorSensorOil(sensors)]}>
-          <Text style={styles.text}>{handleResponseMessageOil(sensors)}</Text>
+          <Text style={[styles.text, handleTextColorSensorOil(sensors)]}>
+            {handleResponseMessageOil(sensors)}
+          </Text>
         </View>
         <View style={[styles.validation, handleColorSensorWatter(sensors)]}>
-          <Text style={styles.text}>
+          <Text style={[styles.text, handleTextColorSensorWatter(sensors)]}>
             {handleResponseMessageWatter(sensors)}
           </Text>
         </View>
@@ -143,11 +120,13 @@ const styles = StyleSheet.create({
     fontFamily: fonts.heading,
     marginVertical: 16,
     textAlign: "center",
+    fontSize: 18,
   },
 
   validation: {
     borderRadius: 20,
     paddingVertical: 10,
     alignItems: "center",
+    width: "90%",
   },
 });
