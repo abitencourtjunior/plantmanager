@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "367593960305",
+    "project_id": "engefil-nordeste",
+    "storage_bucket": "engefil-nordeste.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:367593960305:android:5ca6233cae0b56039afcd0",
+        "android_client_info": {
+          "package_name": "br.com.authomus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "367593960305-eafj17cvap2fk02iav5pckpg4807tfjb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuYQZk3pAwrFjB5tklDg75AmCfzD_9weM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "367593960305-eafj17cvap2fk02iav5pckpg4807tfjb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

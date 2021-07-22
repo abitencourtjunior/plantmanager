@@ -39,7 +39,12 @@ export const PlantCardPrimary = ({ plant, ...rest }: PlantCardPrimaryProps) => {
 
   useEffect(() => {
     async function getData() {
-      const { data } = await api.get("sensor/v1/token?key=" + plant.token);
+      const { data } = await api
+        .get("sensor/v1/token?key=" + plant.token)
+        .catch((e) => {
+          console.log(e);
+        });
+      console.log(data);
       if (data !== undefined || data.length > 0) {
         setSensors(data);
       }
@@ -124,8 +129,9 @@ const styles = StyleSheet.create({
   },
 
   validation: {
-    borderRadius: 20,
+    borderRadius: 25,
     paddingVertical: 10,
+    marginTop: 8,
     alignItems: "center",
     width: "90%",
   },

@@ -19,6 +19,9 @@ import { Button } from "../components/Button";
 import colors from "../styles/colors";
 import fonts from "../styles/fonts";
 import { saveSensor } from "../libs/storage";
+import { api } from "../services/api";
+import { TOKEN_API } from "../notifications/notification";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const SensorSave = () => {
   const navigation = useNavigation();
@@ -44,11 +47,52 @@ export const SensorSave = () => {
     setName("");
   }
 
+  const handleSubmitRequestSensor = async () => {
+    const newSensor = {
+      name: name,
+      model: "ENGFILL_BOARD",
+      token: token,
+    };
+
+    console.log("Sensor -> " + JSON.stringify(newSensor));
+
+    const { data, status } = await api.post(
+      "receiver/v1/create/token/?key=" + "yIgkb4eAMHLBEOjtal6bQw==",
+      newSensor
+    );
+
+    console.log("Data -> " + data);
+    console.log("Status Code -> " + status);
+    return;
+  };
+
+  const handleSubmitRequestNotification = async () => {
+    const notification = {
+      token_notification: await AsyncStorage.getItem(
+        "@engefil:token_notification"
+      ),
+      token: token,
+    };
+
+    console.log("Sensor -> " + JSON.stringify(notification));
+
+    const { data, status } = await api.post(
+      "notification/v1/create/token/?key=" + "yIgkb4eAMHLBEOjtal6bQw==",
+      notification
+    );
+
+    console.log("Data -> " + data);
+    console.log("Status Code -> " + status);
+    return;
+  };
+
   async function handleSubmit() {
     if (!token || !name || !nameProduct) {
       return Alert.alert("Preencha todos os dados da placa!");
     }
     try {
+      handleSubmitRequestSensor();
+      handleSubmitRequestNotification();
       await saveSensor(token, name, nameProduct);
       clearForm();
       navigation.goBack();
