@@ -20,7 +20,6 @@ import colors from "../styles/colors";
 import fonts from "../styles/fonts";
 import { saveSensor } from "../libs/storage";
 import { api } from "../services/api";
-import { TOKEN_API } from "../notifications/notification";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const SensorSave = () => {
@@ -119,6 +118,7 @@ export const SensorSave = () => {
                 value={name}
                 placeholder="Digite o nome do Posto"
                 onChangeText={handleNameChange}
+                keyboardType="default"
               />
 
               <TextInput
@@ -126,6 +126,7 @@ export const SensorSave = () => {
                 value={nameProduct}
                 placeholder="Digite o nome do Produto"
                 onChangeText={handleNameProductChange}
+                keyboardType="default"
               />
 
               <TextInput
@@ -133,6 +134,7 @@ export const SensorSave = () => {
                 value={token}
                 placeholder="Digite o Token da Placa"
                 onChangeText={handleTokenChange}
+                keyboardType="numeric"
               />
 
               <View style={styles.footer}>

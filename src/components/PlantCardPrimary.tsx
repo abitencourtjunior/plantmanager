@@ -53,7 +53,7 @@ export const PlantCardPrimary = ({ plant, ...rest }: PlantCardPrimaryProps) => {
 
     const interval = setInterval(() => {
       getData();
-    }, 30000);
+    }, 4000);
 
     return () => clearInterval(interval);
   }, []);

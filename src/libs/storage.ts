@@ -172,3 +172,11 @@ export async function removePlant(id: string): Promise<void> {
 
   await AsyncStorage.setItem("@plantmanager:plants", JSON.stringify(plants));
 }
+
+export const saveSecondTimeToUpdate = async (time: string) => {
+  await AsyncStorage.setItem("@engefil:timeToUpdate", time);
+};
+
+export const getSecondTimeToUpdate = async () => {
+  return await AsyncStorage.getItem("@engefil:timeToUpdate");
+};
