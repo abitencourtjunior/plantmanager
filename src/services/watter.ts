@@ -11,7 +11,7 @@ export const handleColorSensorWatter = (sensors: SensorResponse[]) => {
     return;
   }
 
-  if (sensor?.level === 0) {
+  if (sensor?.level === 1) {
     return { backgroundColor: "green", borderRadius: 25 };
   }
 
@@ -48,9 +48,9 @@ export const handleResponseMessageWatter = (sensors: SensorResponse[]) => {
   }
 
   switch (sensor?.level) {
-    case 0:
-      return "Diesel - OK - Sem contaminação";
     case 1:
+      return "Diesel - OK - Sem contaminação";
+    case 0:
       return "Diesel - Contaminado";
   }
 };
