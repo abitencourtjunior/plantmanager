@@ -1,13 +1,7 @@
 import { SensorResponse } from "../types";
 
-export const handleColorSensorOil = (sensors: SensorResponse[]) => {
-  if (sensors.length === 0) {
-    return null;
-  }
-
-  let sensor = handleSensorToValidate(sensors);
-
-  if (sensor?.level === null) {
+export const handleColorSensorOil = (sensor: SensorResponse) => {
+  if (sensor?.level === null || sensor === undefined) {
     return;
   }
 
@@ -21,18 +15,8 @@ export const handleColorSensorOil = (sensors: SensorResponse[]) => {
   }
 };
 
-const handleSensorToValidate = (sensors: SensorResponse[]) => {
-  return sensors.find((se) => se.type === 0);
-};
-
-export const handleTextColorSensorOil = (sensors: SensorResponse[]) => {
-  if (sensors.length === 0) {
-    return;
-  }
-
-  let sensor = handleSensorToValidate(sensors);
-
-  if (sensor?.level === null) {
+export const handleTextColorSensorOil = (sensor: SensorResponse) => {
+  if (sensor?.level === null || sensor === undefined) {
     return;
   }
 
@@ -44,14 +28,8 @@ export const handleTextColorSensorOil = (sensors: SensorResponse[]) => {
   }
 };
 
-export const handleResponseMessageOil = (sensors: SensorResponse[]) => {
-  if (sensors.length === 0) {
-    return "[Óleo] Sensor não definido";
-  }
-
-  let sensor = handleSensorToValidate(sensors);
-
-  if (sensor?.level === null) {
+export const handleResponseMessageOil = (sensor: SensorResponse) => {
+  if (sensor?.level === null || sensor === undefined) {
     return "[Óleo] Sensor não definido";
   }
 

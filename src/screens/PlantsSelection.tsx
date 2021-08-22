@@ -56,17 +56,15 @@ const styles = StyleSheet.create({
   },
 
   header: {
-    paddingHorizontal: 30,
-    paddingTop: 40,
+    paddingHorizontal: 26,
+    paddingTop: 24,
   },
 
   title: {
     fontSize: 20,
     color: colors.heading,
     fontFamily: fonts.heading,
-    lineHeight: 20,
     marginTop: 15,
-    paddingBottom: 20,
     textAlign: "center",
   },
 

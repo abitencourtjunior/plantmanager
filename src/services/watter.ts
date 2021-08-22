@@ -1,13 +1,7 @@
 import { SensorResponse } from "../types";
 
-export const handleColorSensorWatter = (sensors: SensorResponse[]) => {
-  if (sensors.length === 0) {
-    return;
-  }
-
-  let sensor = handleSensorToValidate(sensors);
-
-  if (sensor?.level === null) {
+export const handleColorSensorWatter = (sensor: SensorResponse) => {
+  if (sensor?.level === null || sensor === undefined || sensor === "") {
     return;
   }
 
@@ -18,32 +12,16 @@ export const handleColorSensorWatter = (sensors: SensorResponse[]) => {
   return { backgroundColor: "red", borderRadius: 25 };
 };
 
-const handleSensorToValidate = (sensors: SensorResponse[]) => {
-  return sensors.find((se) => se.type === 1);
-};
-
-export const handleTextColorSensorWatter = (sensors: SensorResponse[]) => {
-  if (sensors.length === 0) {
-    return;
-  }
-
-  let sensor = handleSensorToValidate(sensors);
-
-  if (sensor?.level === null) {
+export const handleTextColorSensorWatter = (sensor: SensorResponse) => {
+  if (sensor?.level === null || sensor === undefined || sensor === "") {
     return;
   }
 
   return { color: "white" };
 };
 
-export const handleResponseMessageWatter = (sensors: SensorResponse[]) => {
-  if (sensors.length === 0) {
-    return "[Água] Sensor não definido";
-  }
-
-  let sensor = handleSensorToValidate(sensors);
-
-  if (sensor?.level === null) {
+export const handleResponseMessageWatter = (sensor: SensorResponse) => {
+  if (sensor?.level === null || sensor === undefined || sensor === "") {
     return "[Água] Sensor não definido";
   }
 

@@ -35,25 +35,36 @@ import {
   handleTextColorSensorWatter,
 } from "../services/watter";
 export const PlantCardPrimary = ({ plant, ...rest }: PlantCardPrimaryProps) => {
-  const [sensors, setSensors] = useState<SensorResponse[]>([]);
+  const [watter, setWatter] = useState<SensorResponse>();
+  const [oil, setOil] = useState<SensorResponse>();
 
   useEffect(() => {
-    async function getData() {
+    async function getDataOil() {
       const { data } = await api
-        .get("sensor/v1/token?key=" + plant.token)
+        .get("sensor/v1/token?key=" + "OIL" + plant.token)
         .catch((e) => {
           console.log(e);
         });
-      console.log(data);
-      if (data !== undefined || data.length > 0) {
-        setSensors(data);
-      }
+      console.log(new Date() + " - Payload: " + JSON.stringify(data));
+      setOil(data);
     }
-    getData();
+    getDataOil();
+
+    async function getDataWatter() {
+      const { data } = await api
+        .get("sensor/v1/token?key=" + "WAT" + plant.token)
+        .catch((e) => {
+          console.log(e);
+        });
+      console.log(new Date() + " - Payload: " + JSON.stringify(data));
+      setWatter(data);
+    }
+    getDataWatter();
 
     const interval = setInterval(() => {
-      getData();
-    }, 5500);
+      getDataOil();
+      getDataWatter();
+    }, 1000);
 
     return () => clearInterval(interval);
   }, []);
@@ -90,14 +101,14 @@ export const PlantCardPrimary = ({ plant, ...rest }: PlantCardPrimaryProps) => {
         <Text style={styles.text}>
           {plant.name} - {plant.name_product} - {plant.token}
         </Text>
-        <View style={[styles.validation, handleColorSensorOil(sensors)]}>
-          <Text style={[styles.text, handleTextColorSensorOil(sensors)]}>
-            {handleResponseMessageOil(sensors)}
+        <View style={[styles.validation, handleColorSensorOil(oil)]}>
+          <Text style={[styles.text, handleTextColorSensorOil(oil)]}>
+            {handleResponseMessageOil(oil)}
           </Text>
         </View>
-        <View style={[styles.validation, handleColorSensorWatter(sensors)]}>
-          <Text style={[styles.text, handleTextColorSensorWatter(sensors)]}>
-            {handleResponseMessageWatter(sensors)}
+        <View style={[styles.validation, handleColorSensorWatter(watter)]}>
+          <Text style={[styles.text, handleTextColorSensorWatter(watter)]}>
+            {handleResponseMessageWatter(watter)}
           </Text>
         </View>
       </RectButton>
