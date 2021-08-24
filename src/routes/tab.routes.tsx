@@ -19,10 +19,10 @@ export const AuthRoutes = () => (
       labelPosition: "beside-icon",
       style: {
         paddingVertical: Platform.OS === "ios" ? 20 : 0,
-        height: 88,
+        height: 60,
       },
       labelStyle: {
-        fontSize: 16,
+        fontSize: 12,
       },
     }}
   >

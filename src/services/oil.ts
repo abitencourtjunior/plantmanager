@@ -35,9 +35,9 @@ export const handleResponseMessageOil = (sensor: SensorResponse) => {
 
   switch (sensor?.level) {
     case 4:
-      return "Elemento Filtrante Saturado Em 80%, substituição em breve!";
+      return "Papeis filtrantes saturado em 80%, substituição em breve!";
     case 2:
-      return "Pressão de Óleo Elevada, substituição imediata";
+      return "Papeis filtrantes 100% saturados, substituição imediata!";
     default:
       return "Pressão normal";
   }
