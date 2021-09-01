@@ -1,7 +1,7 @@
 import { SensorResponse } from "../types";
 
-export const handleColorSensorOil = (sensor: SensorResponse) => {
-  if (sensor?.level === null || sensor === undefined) {
+export const handleColorSensorOil = (sensor: SensorResponse | undefined) => {
+  if (sensor?.level === null || sensor?.level === undefined) {
     return;
   }
 
@@ -15,8 +15,10 @@ export const handleColorSensorOil = (sensor: SensorResponse) => {
   }
 };
 
-export const handleTextColorSensorOil = (sensor: SensorResponse) => {
-  if (sensor?.level === null || sensor === undefined) {
+export const handleTextColorSensorOil = (
+  sensor: SensorResponse | undefined
+) => {
+  if (sensor?.level === null || sensor?.level === undefined) {
     return;
   }
 
@@ -28,11 +30,12 @@ export const handleTextColorSensorOil = (sensor: SensorResponse) => {
   }
 };
 
-export const handleResponseMessageOil = (sensor: SensorResponse) => {
-  if (sensor?.level === null || sensor === undefined) {
+export const handleResponseMessageOil = (
+  sensor: SensorResponse | undefined
+) => {
+  if (sensor?.level === null || sensor?.level === undefined) {
     return "[Óleo] Sensor não definido";
   }
-
   switch (sensor?.level) {
     case 4:
       return "Papeis filtrantes saturado em 80%, substituição em breve!";

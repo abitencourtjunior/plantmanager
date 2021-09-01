@@ -26,6 +26,6 @@ export type Sensor = {
 };
 
 export type SensorResponse = {
-  level: string;
+  level: number;
   type: string;
 };

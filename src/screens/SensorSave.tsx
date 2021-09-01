@@ -116,7 +116,7 @@ export const SensorSave = () => {
               <TextInput
                 style={[styles.input]}
                 value={name}
-                placeholder="Digite o nome do Posto"
+                placeholder="Posto"
                 onChangeText={handleNameChange}
                 keyboardType="default"
               />
@@ -124,7 +124,7 @@ export const SensorSave = () => {
               <TextInput
                 style={[styles.input]}
                 value={nameProduct}
-                placeholder="Digite o nome do Produto"
+                placeholder="Produto"
                 onChangeText={handleNameProductChange}
                 keyboardType="default"
               />
@@ -132,7 +132,7 @@ export const SensorSave = () => {
               <TextInput
                 style={[styles.input]}
                 value={token}
-                placeholder="Digite o Token da Placa"
+                placeholder="Token da Placa"
                 onChangeText={handleTokenChange}
                 keyboardType="numeric"
               />
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
     borderColor: colors.gray,
     color: colors.heading,
     width: "100%",
-    fontSize: 18,
+    fontSize: 14,
     marginTop: 50,
     padding: 10,
     textAlign: "center",

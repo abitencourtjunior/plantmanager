@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  ActivityIndicator,
-} from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { View, Text, StyleSheet, FlatList } from "react-native";
 
 import { Header } from "../components/Header";
 import { PlantCardPrimary } from "../components/PlantCardPrimary";
@@ -39,7 +32,7 @@ export const PlantsSelection = () => {
       <View style={styles.plants}>
         <FlatList
           data={sensors}
-          keyExtractor={(sensor) => String(sensor.id)}
+          keyExtractor={(sensor) => String(sensor.token)}
           renderItem={({ item: sensor }) => <PlantCardPrimary plant={sensor} />}
           showsVerticalScrollIndicator={false}
           onEndReachedThreshold={0.1}

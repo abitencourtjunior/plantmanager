@@ -45,8 +45,12 @@ export const PlantCardPrimary = ({ plant, ...rest }: PlantCardPrimaryProps) => {
         .catch((e) => {
           console.log(e);
         });
-      console.log(new Date() + " - Payload: " + JSON.stringify(data));
-      setOil(data);
+      console.log(
+        `Token: ${plant.token} - Payload OIL: ${JSON.stringify(data)}`
+      );
+      if (data !== "") {
+        setOil(data);
+      }
     }
     getDataOil();
 
@@ -56,8 +60,12 @@ export const PlantCardPrimary = ({ plant, ...rest }: PlantCardPrimaryProps) => {
         .catch((e) => {
           console.log(e);
         });
-      console.log(new Date() + " - Payload: " + JSON.stringify(data));
-      setWatter(data);
+      console.log(
+        `Token: ${plant.token} - Payload Watter: ${JSON.stringify(data)}`
+      );
+      if (data !== "") {
+        setWatter(data);
+      }
     }
     getDataWatter();
 
