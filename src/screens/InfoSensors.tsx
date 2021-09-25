@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useEffect, useState } from "react";
 import {
   SafeAreaView,
@@ -9,31 +10,52 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
-import { Button } from "../components/Button";
-import { loadSensors, saveSecondTimeToUpdate } from "../libs/storage";
+import { loadSensors } from "../libs/storage";
+import { api } from "../services/api";
 
 import colors from "../styles/colors";
 import fonts from "../styles/fonts";
 
 export const InfoSensors = () => {
   const [count, setCount] = useState<Number>(0);
-  const [secondsToUpdate, setSecondsToUpdate] = useState<string>("15");
 
-  async function fetchSensors() {
-    const data = await loadSensors();
-    setCount(data.length);
-  }
+  const handleSubmitRequestNotification = async (token, name) => {
+    const notification = {
+      token_notification: await AsyncStorage.getItem(
+        "@engefil:token_notification"
+      ),
+      token: token,
+      nameReceiver: name,
+    };
+
+    console.log("Send Notification -> " + JSON.stringify(notification));
+
+    const { data, status } = await api.post(
+      "notification/v1/create/token/?key=" + "yIgkb4eAMHLBEOjtal6bQw==",
+      notification
+    );
+
+    console.log(data);
+    console.log(status);
+    return;
+  };
 
   useEffect(() => {
+    async function fetchSensors() {
+      const data = await loadSensors();
+      data.forEach((element) => {
+        handleSubmitRequestNotification(element.token, element.name);
+      });
+      setCount(data.length);
+    }
     fetchSensors();
+
+    const interval = setInterval(() => {
+      fetchSensors();
+    }, 120000);
+
+    return () => clearInterval(interval);
   }, []);
-
-  const handleSecondsToUpdate = (value: string) => setSecondsToUpdate(value);
-
-  const handleSubmit = () => {
-    saveSecondTimeToUpdate(secondsToUpdate);
-  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -47,20 +69,6 @@ export const InfoSensors = () => {
               <Text style={styles.title}>Informações</Text>
               <Text style={[styles.input]}>Quantidade de Placas: {count}</Text>
             </View>
-
-            {/* <View style={styles.form}>
-              <Text style={styles.title}>Tempo de Atualização</Text>
-              <TextInput
-                style={[styles.input]}
-                placeholder="Informe o tempo em segundos"
-                value={secondsToUpdate}
-                onChangeText={handleSecondsToUpdate}
-                keyboardType="numeric"
-              />
-            </View>
-            <View style={styles.button}>
-              <Button title="Salvar Tempo" onPress={handleSubmit} />
-            </View> */}
           </View>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>

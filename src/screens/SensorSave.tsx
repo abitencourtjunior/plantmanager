@@ -71,6 +71,7 @@ export const SensorSave = () => {
         "@engefil:token_notification"
       ),
       token: token,
+      nameReceiver: name,
     };
 
     console.log("Sensor -> " + JSON.stringify(notification));
