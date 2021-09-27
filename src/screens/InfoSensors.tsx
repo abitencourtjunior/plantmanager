@@ -30,13 +30,15 @@ export const InfoSensors = () => {
 
     console.log("Send Notification -> " + JSON.stringify(notification));
 
-    const { data, status } = await api.post(
-      "notification/v1/create/token/?key=" + "yIgkb4eAMHLBEOjtal6bQw==",
-      notification
-    );
+    await api
+      .post(
+        "notification/v1/create/token/?key=" + "yIgkb4eAMHLBEOjtal6bQw==",
+        notification
+      )
+      .catch((e) => {
+        console.log("Erro to get status: " + e + "Token: " + notification);
+      });
 
-    console.log(data);
-    console.log(status);
     return;
   };
 
@@ -52,7 +54,7 @@ export const InfoSensors = () => {
 
     const interval = setInterval(() => {
       fetchSensors();
-    }, 120000);
+    }, 60000);
 
     return () => clearInterval(interval);
   }, []);

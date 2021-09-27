@@ -43,14 +43,12 @@ export const PlantCardPrimary = ({ plant, ...rest }: PlantCardPrimaryProps) => {
       const { data } = await api
         .get("sensor/v1/token?key=" + "OIL" + plant.token)
         .catch((e) => {
-          console.log(e);
+          console.log("Erro to get status: " + e + "Token: " + plant.token);
         });
       console.log(
         `Token: ${plant.token} - Payload OIL: ${JSON.stringify(data)}`
       );
-      if (data !== "") {
-        setOil(data);
-      }
+      setOil(data);
     }
     getDataOil();
 
@@ -58,14 +56,12 @@ export const PlantCardPrimary = ({ plant, ...rest }: PlantCardPrimaryProps) => {
       const { data } = await api
         .get("sensor/v1/token?key=" + "WAT" + plant.token)
         .catch((e) => {
-          console.log(e);
+          console.log("Erro to get status: " + e + "Token: " + plant.token);
         });
-      console.log(
-        `Token: ${plant.token} - Payload Watter: ${JSON.stringify(data)}`
-      );
-      if (data !== "") {
-        setWatter(data);
-      }
+      // console.log(
+      //   `Token: ${plant.token} - Payload Watter: ${JSON.stringify(data)}`
+      // );
+      setWatter(data);
     }
     getDataWatter();
 

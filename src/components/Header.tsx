@@ -11,6 +11,8 @@ import fonts from "../styles/fonts";
 import engefilImage from "../assets/engefil.png";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
+import { api } from "../services/api";
+import { loadSensors } from "../libs/storage";
 
 export const Header = () => {
   const [username, setUsername] = useState<string>();
@@ -18,6 +20,31 @@ export const Header = () => {
   const navigation = useNavigation();
 
   const handleInfo = () => navigation.navigate("InfoSensors");
+
+  const handleSubmitRequestNotification = async (token, name) => {
+    const notification = {
+      token_notification: await AsyncStorage.getItem(
+        "@engefil:token_notification"
+      ),
+      token: token,
+      nameReceiver: name,
+    };
+
+    // console.log("Send Notification -> " + JSON.stringify(notification));
+
+    await api
+      .post(
+        "notification/v1/create/token/?key=" + "yIgkb4eAMHLBEOjtal6bQw==",
+        notification
+      )
+      .catch((e) => {
+        console.log(
+          "Erro to update notification: " + e + "Token: " + notification
+        );
+      });
+
+    return;
+  };
 
   useEffect(() => {
     async function loadUsername() {
@@ -30,7 +57,20 @@ export const Header = () => {
       setIdentification(identification || "");
     }
 
+    async function loadNotification() {
+      const data = await loadSensors();
+      data.forEach((element) => {
+        handleSubmitRequestNotification(element.token, element.name);
+      });
+    }
+
     loadUsername();
+
+    const interval = setInterval(() => {
+      loadNotification();
+    }, 60000);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
